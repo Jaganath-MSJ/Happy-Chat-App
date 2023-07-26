@@ -1,7 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
 import { styled } from "styled-components";
 import { getAllMessageRoute, sendMessageRoute } from "../utils/APIRoutes.js";
-import LogOut from "./LogOut";
 import ChatInput from "./ChatInput";
 import axios from "axios";
 import {v4 as uuidv4} from "uuid";
@@ -20,7 +19,7 @@ function ChatContainer({ currentChat, currentUser, socket }) {
       setMessages(res.data);
     };
     handleGetMessage();
-  }, [currentChat, currentUser, socket]);
+  }, [currentChat, currentUser]);
 
   const handleSendMsg = async (msg) => {
     await axios.post(sendMessageRoute, {
@@ -59,7 +58,7 @@ function ChatContainer({ currentChat, currentUser, socket }) {
   return (
     <>
       {currentChat && (
-        <Container>
+        <Container className="asa">
           <div className="chat-header">
             <div className="user-details">
               <div className="avatar">
@@ -72,9 +71,7 @@ function ChatContainer({ currentChat, currentUser, socket }) {
                 <h3>{currentChat.username}</h3>
               </div>
             </div>
-            <LogOut />
           </div>
-          {/* <Message /> */}
           <div className="chat-messages">
             {
               messages.map((message) => {
@@ -98,17 +95,18 @@ function ChatContainer({ currentChat, currentUser, socket }) {
 }
 
 const Container = styled.div`
-  padding-top: 1rem;
   display: grid;
   grid-template-rows: 10% 78% 12%;
   gap: 0.1rem;
   overflow: hidden;
+    background-color: rgb(15, 15, 15);
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     grid-template-rows: 15% 70% 15%;
   }
   .chat-header {
     display: flex;
     justify-content: space-between;
+    background: linear-gradient( to right, rgba(0, 78, 184, 0.6), transparent);
     align-items: center;
     padding: 0 2rem;
     .user-details {
@@ -136,7 +134,7 @@ const Container = styled.div`
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
-        background-color: #ffffff39;
+        background-color: rgba(255, 255, 255, 0.224);
         width: 0.1rem;
         border-radius: 1rem;
       }
@@ -156,13 +154,13 @@ const Container = styled.div`
     .sended {
       justify-content: flex-end;
       .content {
-        background-color: #4f04ff21;
+        background-color: rgb(61, 89, 171);
       }
     }
     .recieved {
       justify-content: flex-start;
       .content {
-        background-color: #9900ff20;
+        background-color: rgba(61, 89, 171, 0.5);
       }
     }
   }

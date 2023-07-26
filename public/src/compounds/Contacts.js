@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import logo from "../assests/logo.svg";
+import LogOut from "./LogOut";
+import logo from "../assests/logo.png";
 
 function Contacts({ contacts, currentUser, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
@@ -26,6 +27,7 @@ function Contacts({ contacts, currentUser, changeChat }) {
           <div className="brand">
             <img src={logo} alt="logo" />
             <h3>Happy Chat</h3>
+            <LogOut />
           </div>
           <div className="contacts">
             {contacts.map((contact, index) => {
@@ -71,7 +73,8 @@ const Container = styled.div`
     display: grid;
     grid-template-rows: 10% 75% 15%;
     overflow: hidden;
-    background-color: #080420;
+    background-color: rgb(15, 14, 14);
+    border-right: 1px solid black;
     .brand {
       display: flex;
       align-items: center;
@@ -94,13 +97,13 @@ const Container = styled.div`
       &::-webkit-scrollbar {
         width: 0.2rem;
         &-thumb {
-          background-color: #ffffff39;
+          background-color: rgba(255, 255, 255, 0.224);
           width: 0.1rem;
           border-radius: 1rem;
         }
       }
       .contact {
-        background-color: #ffffff39;
+        background: linear-gradient( to right, rgba(255, 255, 255, 0.224), transparent);
         min-height: 5rem;
         width: 90%;
         cursor: pointer;
@@ -122,11 +125,11 @@ const Container = styled.div`
         }
       }
       .selected {
-        background-color: #9186f3;
+        background: linear-gradient( to right, rgb(0, 78, 184), transparent);
       }
     }
     .current-user {
-      background-color: #0d0d30;
+      background-color: rgba(0, 78, 184, 0.6);
       display: flex;
       justify-content: center;
       align-items: center;

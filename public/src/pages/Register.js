@@ -4,7 +4,7 @@ import {ToastContainer,toast} from "react-toastify";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import {Link, useNavigate} from "react-router-dom";
-import logo from "../assests/logo.svg";
+import logo from "../assests/logo.png";
 import { registerRoute } from "../utils/APIRoutes";
 
 const Register = () => {

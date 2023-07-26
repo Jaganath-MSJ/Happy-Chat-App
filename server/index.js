@@ -33,7 +33,7 @@ const server = app.listen(process.env.PORT, () => {
 
 const io = new Server(server, {
   cors: {
-    orgin: "http://localhost:3000",
+    orgin: "https://happychat-app.netlify.app",
     credentials: true,
   },
 });
