@@ -1,4 +1,4 @@
-export const host = "http://localhost:8000";
+export const host = "https://happy-chat-backend.onrender.com";
 export const registerRoute = `${host}/api/auth/register`;
 export const loginRoute = `${host}/api/auth/login`;
 export const setAvatarRoute = `${host}/api/auth/setAvatar`;
