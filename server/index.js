@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import { Server } from "socket.io";
 import userRouter from "./routes/userRoutes.js";
 import messageRouter from "./routes/messageROutes.js";
+const URL = process.env.POST || 8000;
 
 const app = express();
 import dotenv from "dotenv";
@@ -27,8 +28,8 @@ mongoose
     console.log(err.message);
   });
 
-const server = app.listen(process.env.PORT, () => {
-  console.log(`Server stated on port ${process.env.PORT}`);
+const server = app.listen(URL, () => {
+  console.log(`Server stated on port ${URL}`);
 });
 
 const io = new Server(server, {
