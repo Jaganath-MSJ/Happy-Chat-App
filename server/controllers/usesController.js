@@ -2,7 +2,6 @@ import userCollection from "../model/userModel.js";
 import bcrypt from "bcrypt";
 
 export const register = async (req, res, next) => {
-  console.log(req.body);
   try {
     const { username, email, password } = req.body;
     const usernameCheck = await userCollection.findOne({ username });

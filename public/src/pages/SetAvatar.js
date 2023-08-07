@@ -31,7 +31,6 @@ const SetAvatar = () => {
   }, [navigate]);
 
   const setProfilePicture = async () => {
-    console.log(avatars[selectedAvatar]);
     if (selectedAvatar === undefined) {
       toast.error("Please select an avatar", toastOptions);
     } else {
