@@ -3,7 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import { Server } from "socket.io";
 import userRouter from "./routes/userRoutes.js";
-import messageRouter from "./routes/messageROutes.js";
+import messageRouter from "./routes/messageRoutes.js";
 const URL = process.env.POST || 8000;
 
 const app = express();
