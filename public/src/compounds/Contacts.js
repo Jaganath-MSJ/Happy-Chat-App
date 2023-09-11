@@ -3,10 +3,9 @@ import styled from "styled-components";
 import LogOut from "./LogOut";
 import logo from "../assests/logo.png";
 
-function Contacts({ contacts, currentUser, changeChat }) {
+function Contacts({ contacts, currentUser, currentChat, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
-  const [currentSelected, setCurrentSelected] = useState(undefined);
 
   useEffect(() => {
     if (currentUser) {
@@ -15,29 +14,28 @@ function Contacts({ contacts, currentUser, changeChat }) {
     }
   }, [currentUser]);
 
-  const changeCurrentChat = (index, contact) => {
-    setCurrentSelected(index);
-    changeChat(contact); 
+  const changeCurrentChat = (contact) => {
+    changeChat(contact);
   };
 
   return (
     <>
       {currentUserImage && currentUserImage && (
-        <Container>
+        <Container className={currentChat !== undefined && "contactSelected"}>
           <div className="brand">
             <img src={logo} alt="logo" />
             <h3>Happy Chat</h3>
             <LogOut />
           </div>
           <div className="contacts">
-            {contacts.map((contact, index) => {
+            {contacts.map((contact) => {
               return (
                 <div
                   className={`contact ${
-                    index === currentSelected ? "selected" : ""
+                    contact.username === currentChat?.username ? "selected" : ""
                   }`}
-                  key={index}
-                  onClick={() => changeCurrentChat(index, contact)}
+                  key={contact.username}
+                  onClick={() => changeCurrentChat(contact)}
                 >
                   <div className="avatar">
                     <img
@@ -70,90 +68,91 @@ function Contacts({ contacts, currentUser, changeChat }) {
 }
 
 const Container = styled.div`
-    display: grid;
-    grid-template-rows: 10% 75% 15%;
-    overflow: hidden;
-    background-color: rgb(15, 14, 14);
-    border-right: 1px solid black;
-    .brand {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  display: grid;
+  grid-template-rows: 10% 75% 15%;
+  overflow: hidden;
+  background-color: rgb(15, 14, 14);
+  border-right: 1px solid black;
+  .brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    img {
+      height: 2rem;
+    }
+    h3 {
+      color: white;
+      text-transform: uppercase;
+    }
+  }
+  .contacts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    gap: 0.8rem;
+    &::-webkit-scrollbar {
+      width: 0.2rem;
+      &-thumb {
+        background-color: rgba(255, 255, 255, 0.224);
+        width: 0.1rem;
+        border-radius: 1rem;
+      }
+    }
+    .contact {
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.224),
+        transparent
+      );
+      min-height: 5rem;
+      width: 90%;
+      cursor: pointer;
+      border-radius: 0.2rem;
+      padding: 0.4rem;
       gap: 1rem;
-      img {
-        height: 2rem;
-      }
-      h3 {
-        color: white;
-        text-transform: uppercase;
-      }
-    }
-    .contacts {
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      overflow: auto;
-      gap: 0.8rem;
-      &::-webkit-scrollbar {
-        width: 0.2rem;
-        &-thumb {
-          background-color: rgba(255, 255, 255, 0.224);
-          width: 0.1rem;
-          border-radius: 1rem;
-        }
-      }
-      .contact {
-        background: linear-gradient( to right, rgba(255, 255, 255, 0.224), transparent);
-        min-height: 5rem;
-        width: 90%;
-        cursor: pointer;
-        border-radius: 0.2rem;
-        padding: 0.4rem;
-        gap: 1rem;
-        align-items: center;
-        display: flex;
-        transition: 0.5s ease-in-out;
-        .avatar {
-          img {
-            height: 3rem;
-          }
-        }
-        .username {
-          h3 {
-            color: white;
-          }
-        }
-      }
-      .selected {
-        background: linear-gradient( to right, rgb(0, 78, 184), transparent);
-      }
-    }
-    .current-user {
-      background-color: rgba(0, 78, 184, 0.6);
       display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 2rem;
+      transition: 0.5s ease-in-out;
       .avatar {
         img {
-          height: 4rem;
-          max-inline-size: 100%;
+          height: 3rem;
         }
       }
       .username {
-        h2 {
+        h3 {
           color: white;
         }
       }
-      @media screen and (min-width: 720px) and (max-width: 1080px) {
-        gap: 0.5rem;
-        .username {
-          h2 {
-            font-size: 1rem;
-          }
-        }
+    }
+    .selected {
+      background: linear-gradient(to right, rgb(0, 78, 184), transparent);
+    }
+  }
+  .current-user {
+    background-color: rgba(0, 78, 184, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    .avatar {
+      img {
+        height: 4rem;
+        max-inline-size: 100%;
       }
     }
+    .username {
+      h2 {
+        color: white;
+      }
+    }
+  }
+  @media screen and (max-width: 500px) {
+    &.contactSelected {
+      display: none;
+    }
+  }
 `;
 
 export default Contacts;

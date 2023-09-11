@@ -61,6 +61,7 @@ const Chat = () => {
         <Contacts
           contacts={contacts}
           currentUser={currentUser}
+          currentChat={currentChat}
           changeChat={handleChatChange}
         />
         {isLoaded && currentChat === undefined ? (
@@ -71,6 +72,7 @@ const Chat = () => {
               currentChat={currentChat}
               currentUser={currentUser}
               socket={socket}
+              clearCurrentChat={handleChatChange}
             />
           )
         )}
@@ -94,8 +96,15 @@ const Container = styled.div`
     background-color: #00000076;
     display: grid;
     grid-template-columns: 25% 75%;
-    @media screen and (min-width: 720px) and (max-width: 1080px) {
+    @media screen and (max-width: 1080px) {
       grid-template-columns: 35% 65%;
+    }
+    @media screen and (max-width: 720px) {
+      grid-template-columns: 40% 60%;
+    }
+    @media screen and (max-width: 500px) {
+      grid-template-columns: 100%;
+      grid-template-rows: 1fr;
     }
   }
 `;

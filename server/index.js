@@ -4,7 +4,10 @@ import mongoose from "mongoose";
 import { Server } from "socket.io";
 import userRouter from "./routes/userRoutes.js";
 import messageRouter from "./routes/messageRoutes.js";
-const URL = process.env.POST || 8000;
+
+const port = process.env.PORT || 8000;
+const frontendUrl =
+  port === 8000 ? "http://localhost:3000" : "https://happychat-app.netlify.app";
 
 const app = express();
 import dotenv from "dotenv";
@@ -28,13 +31,13 @@ mongoose
     console.log(err.message);
   });
 
-const server = app.listen(URL, () => {
-  console.log(`Server stated on port ${URL}`);
+const server = app.listen(port, () => {
+  console.log(`Server stated on port ${port}`);
 });
 
 const io = new Server(server, {
   cors: {
-    orgin: "https://happychat-app.netlify.app",
+    orgin: frontendUrl,
     credentials: true,
   },
 });

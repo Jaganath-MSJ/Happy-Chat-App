@@ -31,7 +31,10 @@ function ChatInput({ handleSendMsg }) {
       <form className="input-container" onSubmit={(e) => sendChat(e)}>
         <div className="button-container">
           <div className="emoji">
-            <BsEmojiSmileFill onClick={handleEmojiPickerPickerHideShow} />
+            <BsEmojiSmileFill
+              onClick={handleEmojiPickerPickerHideShow}
+              className={showEmojiPicker && "emojiOpened"}
+            />
             {showEmojiPicker && (
               <Picker
                 onEmojiClick={handleEmojiClick}
@@ -60,7 +63,7 @@ const Container = styled.div`
   box-shadow: 0 6px 13px white;
   padding: 0 2rem;
   border-bottom: 0.3rem;
-  @media screen and (min-width: 720px) and (max-width: 1080px) {
+  @media screen and (max-width: 720px) {
     padding: 0 1rem;
     gap: 1rem;
   }
@@ -84,6 +87,11 @@ const Container = styled.div`
           font-size: 1.5rem;
           color: #ffff00c8;
           cursor: pointer;
+          transition: color 0.3s;
+          &:hover,
+          &.emojiOpened {
+            color: yellow;
+          }
         }
         .EmojiPickerReact {
           position: absolute;
@@ -132,15 +140,13 @@ const Container = styled.div`
       background-color: transparent;
       border: none;
       cursor: pointer;
+      transition: transform 0.3s;
       svg {
         font-size: 2rem;
         color: white;
       }
-      @media screen and (min-width: 720px) and (max-width: 1080px) {
-        padding: 0.3rem 1rem;
-        svg {
-          font-size: 1rem;
-        }
+      &:hover {
+        transform: scale(1.1) translateX(10px);
       }
     }
   }
