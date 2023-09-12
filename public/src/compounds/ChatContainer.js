@@ -103,12 +103,8 @@ function ChatContainer({ currentChat, currentUser, socket, clearCurrentChat }) {
 const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 78% 12%;
-  gap: 0.1rem;
   overflow: hidden;
   background-color: rgb(15, 15, 15);
-  @media screen and (min-width: 720px) and (max-width: 1080px) {
-    grid-template-rows: 15% 70% 15%;
-  }
   .chat-header {
     display: flex;
     justify-content: space-between;

@@ -104,7 +104,9 @@ const Container = styled.div`
     }
     @media screen and (max-width: 500px) {
       grid-template-columns: 100%;
-      grid-template-rows: 1fr;
+      grid-template-rows: 100%;
+      width: 100%;
+      height: 100%;
     }
   }
 `;
