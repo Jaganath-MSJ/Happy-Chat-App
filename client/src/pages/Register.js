@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assests/logo.png";
 import { registerRoute } from "../utils/APIRoutes";
+import { errorOptions } from "../utils/toastOptions";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -15,14 +16,6 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
-
-  const toastOptions = {
-    position: "bottom-right",
-    autoClose: 10000,
-    pauseOnHover: true,
-    draggable: true,
-    theme: "dark",
-  };
 
   useEffect(() => {
     if (localStorage.getItem("happy-chat-app-user")) {
@@ -41,7 +34,7 @@ const Register = () => {
       });
 
       if (data.status === false) {
-        toast.error(data.msg, toastOptions);
+        toast.error(data.msg, errorOptions);
       } else {
         localStorage.setItem("happy-chat-app-user", JSON.stringify(data.user));
         navigate("/");
@@ -54,23 +47,23 @@ const Register = () => {
     if (password !== confirmPassword) {
       toast.error(
         "password and confirm password should be same.",
-        toastOptions
+        errorOptions
       );
       return false;
     } else if (username.length < 3) {
       toast.error(
         "username should be greater than 3 characters.",
-        toastOptions
+        errorOptions
       );
       return false;
     } else if (password.length < 8) {
       toast.error(
         "password should be equal or greater than 8 characters.",
-        toastOptions
+        errorOptions
       );
       return false;
     } else if (email === "") {
-      toast.error("email is required.", toastOptions);
+      toast.error("email is required.", errorOptions);
       return false;
     }
     return true;
