@@ -41,7 +41,6 @@ const Register = () => {
       });
 
       if (data.status === false) {
-        console.log(process.env.NODE_ENV);
         toast.error(data.msg, toastOptions);
       } else {
         localStorage.setItem("happy-chat-app-user", JSON.stringify(data.user));
