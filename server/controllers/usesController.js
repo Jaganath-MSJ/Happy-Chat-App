@@ -6,11 +6,11 @@ export const register = async (req, res, next) => {
     const { username, email, password } = req.body;
     const usernameCheck = await userCollection.findOne({ username });
     if (usernameCheck) {
-      return res.json({ msj: "username already used", status: false });
+      return res.json({ msg: "username already used", status: false });
     }
     const emailCheck = await userCollection.findOne({ email });
     if (emailCheck) {
-      return res.json({ msj: "email already used", status: false });
+      return res.json({ msg: "email already used", status: false });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await userCollection.create({
@@ -30,11 +30,11 @@ export const login = async (req, res, next) => {
     const { username, password } = req.body;
     const user = await userCollection.findOne({ username });
     if (!user) {
-      return res.json({ msj: "Incorrect username", status: false });
+      return res.json({ msg: "Incorrect username", status: false });
     }
     const isPassworsValid = await bcrypt.compare(password, user.password);
     if (!isPassworsValid) {
-      return res.json({ msj: "Incorrect passowrd", status: false });
+      return res.json({ msg: "Incorrect passowrd", status: false });
     }
     delete user.password;
     return res.json({ status: true, user });
@@ -61,13 +61,12 @@ export const setAvatar = async (req, res, next) => {
 };
 
 export const getAllUsers = async (req, res, next) => {
-    try {
-      const users = await userCollection.find({_id: {$ne: req.params.id}}).select([
-        "email","username","avatarImage","_id"
-      ]);
-      return res.json(users);
-    } catch (err) {
-      next(err);
-    }
-  };
-  
+  try {
+    const users = await userCollection
+      .find({ _id: { $ne: req.params.id } })
+      .select(["email", "username", "avatarImage", "_id"]);
+    return res.json(users);
+  } catch (err) {
+    next(err);
+  }
+};
