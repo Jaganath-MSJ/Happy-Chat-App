@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import axios from "axios";
-import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assests/logo.png";
 import { registerRoute } from "../utils/APIRoutes";
-import { errorOptions } from "../utils/toastOptions";
+import { errorOptions, successOptions } from "../utils/toastOptions";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -33,10 +32,11 @@ const Register = () => {
         password,
       });
 
-      if (data.status === false) {
+      if (!data.status) {
         toast.error(data.msg, errorOptions);
       } else {
         localStorage.setItem("happy-chat-app-user", JSON.stringify(data.user));
+        toast.success("Registration successful.", successOptions);
         navigate("/");
       }
     }
@@ -74,45 +74,46 @@ const Register = () => {
   };
 
   return (
-    <>
-      <FromContainer>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <div className="brand">
-            <img src={logo} alt="logo" />
-            <h1>Happy Chat</h1>
-          </div>
-          <input
-            type="text"
-            placeholder="Username"
-            name="username"
-            onChange={(e) => handleChange(e)}
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            name="email"
-            onChange={(e) => handleChange(e)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            onChange={(e) => handleChange(e)}
-          />
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            name="confirmPassword"
-            onChange={(e) => handleChange(e)}
-          />
-          <button type="submit">Create User</button>
-          <span>
-            Already have an account ? <Link to="/login">Login</Link>
-          </span>
-        </form>
-      </FromContainer>
-      <ToastContainer />
-    </>
+    <FromContainer>
+      <form onSubmit={handleSubmit}>
+        <div className="brand">
+          <img src={logo} alt="logo" />
+          <h1>Happy Chat</h1>
+        </div>
+        <input
+          type="text"
+          placeholder="Username"
+          name="username"
+          onChange={handleChange}
+          autoComplete="happy-chat-user"
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          name="email"
+          onChange={handleChange}
+          autoComplete="happy-chat-user"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          name="password"
+          onChange={handleChange}
+          autoComplete="happy-chat-user"
+        />
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          name="confirmPassword"
+          onChange={handleChange}
+          autoComplete="happy-chat-user"
+        />
+        <button type="submit">Create User</button>
+        <span>
+          Already have an account ? <Link to="/login">Login</Link>
+        </span>
+      </form>
+    </FromContainer>
   );
 };
 

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import axios from "axios";
-import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assests/logo.png";
 import { loginRoute } from "../utils/APIRoutes";
+import { errorOptions, successOptions } from "../utils/toastOptions";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,14 +13,6 @@ const Login = () => {
     username: "",
     password: "",
   });
-
-  const toastOptions = {
-    position: "bottom-right",
-    autoClose: 10000,
-    pauseOnHover: true,
-    draggable: true,
-    theme: "dark",
-  };
 
   useEffect(() => {
     if (localStorage.getItem("happy-chat-app-user")) {
@@ -37,10 +29,11 @@ const Login = () => {
         password,
       });
 
-      if (data.status === false) {
-        toast.error(data.msg, toastOptions);
+      if (!data.status) {
+        toast.error(data.msg, errorOptions);
       } else {
         localStorage.setItem("happy-chat-app-user", JSON.stringify(data.user));
+        toast.success("Login successful.", successOptions);
         navigate("/");
       }
     }
@@ -48,11 +41,11 @@ const Login = () => {
 
   function handleValidation() {
     const { password, username } = values;
-    if (password === "") {
-      toast.error("password is required.", toastOptions);
+    if (username === "") {
+      toast.error("username is required.", errorOptions);
       return false;
-    } else if (username === "") {
-      toast.error("username is required", toastOptions);
+    } else if (password === "") {
+      toast.error("password is required", errorOptions);
       return false;
     }
     return true;
@@ -63,34 +56,32 @@ const Login = () => {
   };
 
   return (
-    <>
-      <FromContainer>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <div className="brand">
-            <img src={logo} alt="logo" />
-            <h1>Happy Chat</h1>
-          </div>
-          <input
-            type="text"
-            placeholder="Username"
-            name="username"
-            onChange={(e) => handleChange(e)}
-            min="3"
-          />
-          <input
-            type="password"
-            placeholder="password"
-            name="password"
-            onChange={(e) => handleChange(e)}
-          />
-          <button type="submit">Login</button>
-          <span>
-            Don't have an account ? <Link to="/register">Register</Link>
-          </span>
-        </form>
-      </FromContainer>
-      <ToastContainer />
-    </>
+    <FromContainer>
+      <form onSubmit={handleSubmit}>
+        <div className="brand">
+          <img src={logo} alt="logo" />
+          <h1>Happy Chat</h1>
+        </div>
+        <input
+          type="text"
+          placeholder="Username"
+          name="username"
+          onChange={handleChange}
+          autoComplete="happy-chat-user"
+        />
+        <input
+          type="password"
+          placeholder="password"
+          name="password"
+          onChange={handleChange}
+          autoComplete="happy-chat-user"
+        />
+        <button type="submit">Login</button>
+        <span>
+          Don't have an account ? <Link to="/register">Register</Link>
+        </span>
+      </form>
+    </FromContainer>
   );
 };
 
