@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { styled } from "styled-components";
-import { getAllMessageRoute, sendMessageRoute } from "../utils/APIRoutes.js";
-import ChatInput from "./ChatInput";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { HiArrowLeft } from "react-icons/hi";
+import { getAllMessageRoute, sendMessageRoute } from "../utils/APIRoutes.js";
+import ChatInput from "./ChatInput";
 
 function ChatContainer({ currentChat, currentUser, socket, clearCurrentChat }) {
   const [messages, setMessages] = useState([]);

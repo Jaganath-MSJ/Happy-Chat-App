@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { toast } from "react-toastify";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import styled from "styled-components";
+import axios from "axios";
+import { Buffer } from "buffer";
 import loader from "../assests/loader.gif";
 import { setAvatarRoute } from "../utils/APIRoutes";
-import { Buffer } from "buffer";
 import { errorOptions, successOptions } from "../utils/toastOptions";
 
 const SetAvatar = () => {
