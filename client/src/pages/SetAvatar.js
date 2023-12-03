@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { ToastContainer, toast } from "react-toastify";
-import axios from "axios";
-import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import styled from "styled-components";
+import axios from "axios";
+import { Buffer } from "buffer";
 import loader from "../assests/loader.gif";
 import { setAvatarRoute } from "../utils/APIRoutes";
-import { Buffer } from "buffer";
+import { errorOptions, successOptions } from "../utils/toastOptions";
 
 const SetAvatar = () => {
   const api = "https://api.multiavatar.com/45678945";
@@ -16,25 +16,19 @@ const SetAvatar = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedAvatar, setSelectedAvatar] = useState(undefined);
 
-  const toastOptions = {
-    position: "bottom-right",
-    autoClose: 10000,
-    pauseOnHover: true,
-    draggable: true,
-    theme: "dark",
-  };
-
   useEffect(() => {
-    if(!localStorage.getItem("happy-chat-app-user")) {
+    if (!localStorage.getItem("happy-chat-app-user")) {
       navigate("/login");
     }
   }, [navigate]);
 
   const setProfilePicture = async () => {
     if (selectedAvatar === undefined) {
-      toast.error("Please select an avatar", toastOptions);
+      toast.error("Please select an avatar", errorOptions);
     } else {
-      const user = await JSON.parse(localStorage.getItem("happy-chat-app-user"));
+      const user = await JSON.parse(
+        localStorage.getItem("happy-chat-app-user")
+      );
       const { data } = await axios.post(`${setAvatarRoute}/${user._id}`, {
         image: avatars[selectedAvatar],
       });
@@ -42,9 +36,10 @@ const SetAvatar = () => {
         user.isAvatarImageSet = true;
         user.avatarImage = data.image;
         localStorage.setItem("happy-chat-app-user", JSON.stringify(user));
+        toast.success("Avatar set successfully", successOptions);
         navigate("/");
       } else {
-        toast.error("Error setting avatar.Please try again", toastOptions);
+        toast.error("Error setting avatar.Please try again", errorOptions);
       }
     }
   };
@@ -84,15 +79,20 @@ const SetAvatar = () => {
             {avatars.map((avatar, index) => {
               return (
                 <div
-                  key={index}
+                  key={`avatar-${index}`}
                   className={`avatar ${
                     selectedAvatar === index ? "selected" : ""
                   }`}
                 >
                   <img
                     src={`data:image/svg+xml;base64,${avatar}`}
-                    alt="avatar"
+                    alt={`avatar-${index}`}
                     onClick={() => setSelectedAvatar(index)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        setSelectedAvatar(index);
+                      }
+                    }}
                   />
                 </div>
               );
@@ -103,8 +103,6 @@ const SetAvatar = () => {
           </button>
         </Container>
       )}
-      ;
-      <ToastContainer />
     </>
   );
 };

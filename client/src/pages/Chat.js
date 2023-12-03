@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import { allUserRoute, host } from "../utils/APIRoutes.js";
 import Contacts from "../compounds/Contacts.js";
 import Welcome from "../compounds/Welcome.js";
 import ChatContainer from "../compounds/ChatContainer.js";
-import { io } from "socket.io-client";
 
 const Chat = () => {
   const socket = useRef();

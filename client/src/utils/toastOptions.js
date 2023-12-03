@@ -1,6 +1,6 @@
 export const errorOptions = {
   position: "bottom-right",
-  autoClose: 10000,
+  autoClose: 8000,
   pauseOnHover: true,
   draggable: true,
   theme: "dark",
@@ -8,7 +8,7 @@ export const errorOptions = {
 
 export const successOptions = {
   position: "top-center",
-  autoClose: 10000,
+  autoClose: 5000,
   pauseOnHover: true,
   draggable: true,
   theme: "light",
