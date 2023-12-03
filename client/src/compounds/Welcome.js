@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import robot from "../assests/robot.gif";
 
@@ -32,5 +33,9 @@ const Container = styled.div`
     display: none;
   }
 `;
+
+Welcome.propTypes = {
+  currentUser: PropTypes.object.isRequired,
+};
 
 export default Welcome;

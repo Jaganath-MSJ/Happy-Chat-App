@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import Picker from "emoji-picker-react";
 import { IoMdSend } from "react-icons/io";
@@ -137,5 +138,9 @@ const Container = styled.div`
     }
   }
 `;
+
+ChatInput.propTypes = {
+  handleSendMsg: PropTypes.func.isRequired,
+};
 
 export default ChatInput;

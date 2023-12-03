@@ -79,7 +79,7 @@ const SetAvatar = () => {
             {avatars.map((avatar, index) => {
               return (
                 <div
-                  key={index}
+                  key={`avatar-${index}`}
                   className={`avatar ${
                     selectedAvatar === index ? "selected" : ""
                   }`}
@@ -88,6 +88,11 @@ const SetAvatar = () => {
                     src={`data:image/svg+xml;base64,${avatar}`}
                     alt={`avatar-${index}`}
                     onClick={() => setSelectedAvatar(index)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        setSelectedAvatar(index);
+                      }
+                    }}
                   />
                 </div>
               );

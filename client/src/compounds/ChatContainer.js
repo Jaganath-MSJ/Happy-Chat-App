@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 import { styled } from "styled-components";
 import { getAllMessageRoute, sendMessageRoute } from "../utils/APIRoutes.js";
 import ChatInput from "./ChatInput";
@@ -180,5 +181,12 @@ const Container = styled.div`
     }
   }
 `;
+
+ChatContainer.propTypes = {
+  currentChat: PropTypes.object.isRequired,
+  currentUser: PropTypes.object.isRequired,
+  socket: PropTypes.object.isRequired,
+  clearCurrentChat: PropTypes.func.isRequired,
+};
 
 export default ChatContainer;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import LogOut from "./LogOut";
 import logo from "../assests/logo.png";
@@ -20,7 +21,7 @@ function Contacts({ contacts, currentUser, currentChat, changeChat }) {
 
   return (
     <>
-      {currentUserImage && currentUserImage && (
+      {currentUserImage && (
         <Container className={currentChat !== undefined && "contactSelected"}>
           <div className="brand">
             <img src={logo} alt="logo" />
@@ -36,6 +37,11 @@ function Contacts({ contacts, currentUser, currentChat, changeChat }) {
                   }`}
                   key={contact.username}
                   onClick={() => changeCurrentChat(contact)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === "Space") {
+                      changeCurrentChat(contact);
+                    }
+                  }}
                 >
                   <div className="avatar">
                     <img
@@ -154,5 +160,12 @@ const Container = styled.div`
     }
   }
 `;
+
+Contacts.propTypes = {
+  contacts: PropTypes.array.isRequired,
+  currentUser: PropTypes.object.isRequired,
+  currentChat: PropTypes.object.isRequired,
+  changeChat: PropTypes.func.isRequired,
+};
 
 export default Contacts;
