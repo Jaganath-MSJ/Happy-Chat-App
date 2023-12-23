@@ -38,7 +38,7 @@ function Contacts({ contacts, currentUser, currentChat, changeChat }) {
                   key={contact.username}
                   onClick={() => changeCurrentChat(contact)}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === "Space") {
+                    if (e.keyCode === 13 || e.which === 13) {
                       changeCurrentChat(contact);
                     }
                   }}

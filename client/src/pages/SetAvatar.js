@@ -89,7 +89,7 @@ const SetAvatar = () => {
                     alt={`avatar-${index}`}
                     onClick={() => setSelectedAvatar(index)}
                     onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
+                      if (e.keyCode === 13 || e.which === 13) {
                         setSelectedAvatar(index);
                       }
                     }}
